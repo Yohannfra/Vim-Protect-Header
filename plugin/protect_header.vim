@@ -13,7 +13,7 @@ function! Protect()
         endif
         call append(line('^'), "#ifndef ". toupper(filename) . ext)
         call append(line('^') + 1, "#define " . toupper(filename) . ext)
-        call append(line('^') + 3, "#endif")
+        call append(line('$'), "#endif")
     else
         echo "This is not a header file"
     endif
