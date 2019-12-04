@@ -24,6 +24,19 @@ insert this line in your .vimrc
 autocmd BufNewFile *.h,*.hpp :Protect
 ```
 
+If you want to add a comment after the endif so it looks like that
+```c
+#ifndef MY_HEADER_HPP
+#define MY_HEADER_HPP
+
+#endif // MY_HEADER_HPP
+```
+
+Add this line to your .vimrc
+```vim
+let g:Protect_Header_Endif_Comment = 1
+```
+
 ## How to use
 
 ```
