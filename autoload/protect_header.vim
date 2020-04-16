@@ -1,6 +1,5 @@
-if !exists("g:Protect_Header_Skip_Epitech_Header")
-    let g:Protect_Header_Skip_Epitech_Header = 0
-endif
+let g:Protect_Header_Skip_Epitech_Header =
+            \ get(g:, 'Protect_Header_Skip_Epitech_Header')
 
 function! protect_header#Protect()
     let extension = expand('%:e')
