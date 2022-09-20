@@ -1,20 +1,15 @@
-let g:Protect_Header_Skip_Epitech_Header =
-            \ get(g:, 'Protect_Header_Skip_Epitech_Header')
-
 function! protect_header#Protect()
     let extension = expand('%:e')
     let filename = expand('%:t:r')
-    let first_index = 0
-
-    if g:Protect_Header_Skip_Epitech_Header == 1
-        if stridx(getline(2), "EPITECH PROJECT,") != -1
-            let first_index = 7
-        endif
-    endif
 
     if !exists("g:Protect_Header_Endif_Comment")
         let g:Protect_Header_Endif_Comment = 0
     endif
+
+    if !exists("g:Protect_Header_cpp_extern_c")
+        let g:Protect_Header_cpp_extern_c = 0
+    endif
+
 
     if extension !=# "h" && extension !=# "hpp"
         echo "This is not a header file"
@@ -23,9 +18,22 @@ function! protect_header#Protect()
     let ext = "_" . toupper(extension)
     let gate_name = toupper(filename) . ext
 
-    call append(first_index, "#ifndef ". gate_name)
-    call append(first_index + 1, "#define " . gate_name)
-    call append(first_index + 2, "")
+    call append(line('$'), "#ifndef ". gate_name)
+    call append(line('$'), "#define " . gate_name)
+    call append(line('$'), "")
+
+    if g:Protect_Header_cpp_extern_c 
+
+    call append(line('$'), "#ifdef __cplusplus")
+    call append(line('$'), "extern \"C\" {")
+    call append(line('$'), "#endif")
+    call append(line('$'), "")
+    call append(line('$'), "#ifdef __cplusplus")
+    call append(line('$'), "}")
+    call append(line('$'), "#endif")
+    call append(line('$'), "")
+    endif
+
     if g:Protect_Header_Endif_Comment
         call append(line('$'), "#endif // " . gate_name)
     else
