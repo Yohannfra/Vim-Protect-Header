@@ -12,7 +12,8 @@ function! protect_header#Protect()
 
 
     if extension !=# "h" && extension !=# "hpp"
-        echo "This is not a header file"
+        echo "This is not a c/c++ header file"
+        return
     endif
 
     let ext = "_" . toupper(extension)
